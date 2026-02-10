@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
 
 const Form = () => {
 
@@ -8,9 +9,13 @@ const Form = () => {
   const handleSubmission = async(e) => {
     e.preventDefault();
     try{
-      const response = await axios.post("http://localhost:2000/adduser", {
+      const response = await axios.post("http://localhost:2000/api/adduser", {
         nameField
-      })
+      });
+      console.log(response);
+
+      setNameField("");
+      toast.success(response.data.message)
     }
     catch(err){
       console.log("Error Inserting Data", err);

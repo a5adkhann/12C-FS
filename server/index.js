@@ -20,6 +20,27 @@ app.post("/api/adduser", async(req, res) => {
     }
 })
 
+app.get("/api/getusers", async(req, res) => {
+    try{
+        const users = await User.find();
+        res.status(200).send({users});
+    }
+    catch(err){
+        console.log("Error Fetching Data", err);
+    }
+})
+
+
+app.put("/api/edituser/:id", async(req, res) => {
+    const { name } = req.body;
+    try{
+        await User.updateOne({_id: req.params.id}, {$set: {name: name}});
+        res.status(200).send({message: "User updated successfully"});
+    }
+    catch(err){
+        console.log("Error updating user", err);
+    }
+})
 
 
 

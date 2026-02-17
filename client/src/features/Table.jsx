@@ -41,6 +41,17 @@ const Table = () => {
     }
   }
 
+  const handleDelete = async(id) => {
+    try{
+      const response = await axios.delete(`http://localhost:2000/api/deleteuser/${id}`);
+      console.log(response);
+      toast.success(response.data.message);
+    }
+    catch(err){
+      console.log("Error deleting user", err);
+    }
+  }
+
 
 
   return (
@@ -82,7 +93,7 @@ const Table = () => {
                   :
                     <>
                     <button className="btn btn-soft btn-info" onClick={() => handleEdit(u)}>Edit</button>
-                    <button className="btn btn-soft btn-error">Delete</button>
+                    <button className="btn btn-soft btn-error" onClick={() => handleDelete(u._id)}>Delete</button>
                     </>
                     }
                   </td>
